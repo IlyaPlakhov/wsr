@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" name="" id="login">
+    <input type="password" name="" id="password">
+    <input type="button" value="log in" onclick="login()">
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io()
+
+        function login() {
+            var login = document.getElementById("login").value
+            var password = document.getElementById("password").value
+            socket.emit("login", login, password)
+        }
+        socket.on("loginreq", function(login){
+            alert("Вы вошли под именем: " + login)
+        })
+        socket.on("loginfailed", function(){
+            alert("Неверный логин или пароль")
+        })
+    </script>
+</body>
+</html>
